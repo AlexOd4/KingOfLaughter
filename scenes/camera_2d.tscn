@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://c4whuoy7tsdto"]
+
+[sub_resource type="GDScript" id="GDScript_4q2wv"]
+
+[node name="Camera2D" type="Camera2D"]
+script = SubResource("GDScript_4q2wv")

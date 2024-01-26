@@ -1,18 +1,72 @@
-[gd_scene load_steps=3 format=3 uid="uid://dicrghdornra8"]
+[gd_scene load_steps=8 format=3 uid="uid://dicrghdornra8"]
 
-[ext_resource type="Script" path="res://world.gd" id="1_fov1x"]
-[ext_resource type="PackedScene" uid="uid://b1w53y64nr7bt" path="res://player.tscn" id="2_ddr6e"]
+[ext_resource type="Script" path="res://scripts/world.gd" id="1_wr12l"]
+[ext_resource type="PackedScene" uid="uid://b1w53y64nr7bt" path="res://scenes/player.tscn" id="2_bq4er"]
+[ext_resource type="Script" path="res://scripts/camera_flash.gd" id="3_ompkf"]
+[ext_resource type="Texture2D" uid="uid://dcp4k7w3mdvqt" path="res://sprites/camera_flash.png" id="4_yqfob"]
+
+[sub_resource type="Animation" id="Animation_p3n0h"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("camera_flash:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_ok5gh"]
+resource_name = "camera_flash"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("camera_flash:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_q6kgq"]
+_data = {
+"RESET": SubResource("Animation_p3n0h"),
+"camera_flash": SubResource("Animation_ok5gh")
+}
 
 [node name="World" type="Node2D"]
-script = ExtResource("1_fov1x")
+script = ExtResource("1_wr12l")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
-position = Vector2(0, 43)
-polygon = PackedVector2Array(1, 107, 98, 107, 98, 124, 208, 124, 208, 107, 320, 107, 320, 137, 1, 137)
+position = Vector2(4, 18)
+polygon = PackedVector2Array(-1, 107, -104, 107, -104, 61, -167, 61, -167, 175, 1, 175, 1, 287, -221, 287, -221, 258, -262, 258, -262, 225, -302, 225, -302, 184, -210, 184, -210, 60, -370, 62, -370, 341, 514, 338, 515, -117, 459, -117, 459, 106, 321, 107, 321, 138, 1, 136)
 
 [node name="Polygon2D" type="Polygon2D" parent="StaticBody2D/CollisionPolygon2D"]
+color = Color(1, 0.780392, 0.235294, 1)
 
-[node name="player" parent="." instance=ExtResource("2_ddr6e")]
-position = Vector2(57, 114)
+[node name="player" parent="." instance=ExtResource("2_bq4er")]
+position = Vector2(160, 90)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+script = ExtResource("3_ompkf")
+
+[node name="camera_flash" type="Sprite2D" parent="CanvasLayer"]
+modulate = Color(1, 1, 1, 0)
+position = Vector2(160, 90)
+scale = Vector2(10, 5.625)
+texture = ExtResource("4_yqfob")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer"]
+libraries = {
+"": SubResource("AnimationLibrary_q6kgq")
+}
