@@ -17,8 +17,7 @@ func _physics_process(delta):
 	handle_acceleration(input_axis, delta)
 	apply_friction(input_axis, delta)
 	move_and_slide()
-	if Input.is_action_just_pressed("reset_camera"):
-		debug_camera_reset()
+	
 	
 func apply_gravity(delta):
 	if not is_on_floor():
@@ -40,5 +39,25 @@ func apply_friction(input_axis, delta):
 	if input_axis == 0:
 		velocity.x = move_toward(velocity.x, 0, FRICTION * delta)
 		
+func _on_throne_room_body_entered(body):
+	debug_camera_reset()
+
 func debug_camera_reset():
 		Global.picture_taken = false
+
+func _on_pic_1_body_entered(body):
+	$Timer.set_wait_time(3)
+	$Timer.start()
+
+func _on_pic_2_body_entered(body):
+	$Timer.set_wait_time(1)
+	$Timer.start()
+
+func _on_pic_3_body_entered(body):
+	$Timer.set_wait_time(2)
+	$Timer.start()
+	
+	
+func _on_timer_timeout():
+	$Timer.stop()
+	print("Pic opportunity missed...")
