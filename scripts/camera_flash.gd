@@ -5,4 +5,5 @@ func _process(delta):
 	if Global.picture_taken == false:
 		if Input.is_action_just_pressed("ui_accept"):
 			$AnimationPlayer.play("camera_flash")
+			print("Picture snapped")
 			Global.picture_taken = true;
