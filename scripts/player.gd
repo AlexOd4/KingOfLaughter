@@ -11,6 +11,7 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var pic_start = 5
 var pic_end = 3.5
 var rot_sprite = false
+var photo = false
 
 @onready var anim_pic2 = get_node("../Pic2/Sprite2D/AnimationPlayer")
 
@@ -35,6 +36,12 @@ func _physics_process(delta):
 		if time_left != 0 and time_left < pic_end or time_left > pic_start:
 			Global.bad_pictures += 1;
 			print("This sucks man...Bad pics = " + str(Global.bad_pictures))
+	
+	if Input.is_action_just_pressed("ui_accept"):
+		$AnimationPlayer.play("takePhoto")
+		$TimerPhoto.start()
+		photo = true
+		
 		
 func apply_gravity(delta):
 	if not is_on_floor():
@@ -47,17 +54,21 @@ func handle_jump():
 		else: 
 			if Input.is_action_just_released("ui_up") and velocity.y < JUMP_VELOCITY / 2:
 				velocity.y = JUMP_VELOCITY / 2
+			$AnimationPlayer.play("jump")
+
 	
 func handle_acceleration(input_axis, delta):
 	if input_axis != 0:
 		velocity.x = move_toward(velocity.x, SPEED * input_axis, ACCELERATION * delta)
-		$AnimationPlayer.play("Running")
+		if is_on_floor():
+			$AnimationPlayer.play("Running")
 		if velocity.x > 0:
 			rot_sprite = false
 		elif velocity.x < 0:
 			rot_sprite = true
 	else:
-		$AnimationPlayer.play("Idle")
+		if not photo:
+			$AnimationPlayer.play("Idle")
 		
 func apply_friction(input_axis, delta):
 	if input_axis == 0:
@@ -81,3 +92,7 @@ func _on_pic_3_body_entered(body): #en realidad es el PIC3!!!!!
 func _on_timer_timeout():
 	$Timer.stop()
 	print("Pic opportunity missed...")
+	
+
+func _on_timer_photo_timeout():
+	photo = false
