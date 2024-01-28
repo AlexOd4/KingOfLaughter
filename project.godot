@@ -76,4 +76,4 @@ reset_camera={
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0
-environment/defaults/default_clear_color=Color(0.356863, 0.658824, 1, 1)
+environment/defaults/default_clear_color=Color(0.188235, 0.376471, 0.509804, 1)

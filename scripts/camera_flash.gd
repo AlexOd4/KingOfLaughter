@@ -7,3 +7,5 @@ func _process(delta):
 	if Input.is_action_just_pressed("ui_accept"):
 		$AnimationPlayer.play("camera_flash")
 		print("Picture snapped")
+		
+		

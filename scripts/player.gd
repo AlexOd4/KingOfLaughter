@@ -9,11 +9,17 @@ const JUMP_VELOCITY = -350.0
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var pic_start = 5
-var pic_end = 3.5
+var pic_end = 4
 var rot_sprite = false
 var photo = false
 
+@onready var tutorial_text = get_node("../Label")
+@onready var endgame_text = get_node("../Label2")
 @onready var anim_pic2 = get_node("../Pic2/Sprite2D/AnimationPlayer")
+@onready var anim_pic1 = get_node("../Pic1/Sprite2D/AnimationPlayer")
+@onready var anim_pic3 = get_node("../Pic3/Sprite2D/AnimationPlayer")
+@onready var king_pointer = get_node("Camera2D/pointer")
+@onready var king_animation = get_node("Camera2D/pointer/AnimationPlayer")
 
 func _physics_process(delta): 
 	apply_gravity(delta)
@@ -40,8 +46,15 @@ func _physics_process(delta):
 	if Input.is_action_just_pressed("ui_accept"):
 		$AnimationPlayer.play("takePhoto")
 		$TimerPhoto.start()
+		$AudioStreamPlayer.play()
 		photo = true
 		
+	if position.x < -960 :
+		hide_tut_text()
+		
+	if Global.total_pictures > 3:
+		show_endgame_text()
+		show_king_pointer()
 		
 func apply_gravity(delta):
 	if not is_on_floor():
@@ -82,17 +95,27 @@ func _on_pic_1_body_entered(body): #en realidad es el PIC2!!!!!
 func _on_pic_2_body_entered(body): #en realidad es el PIC1!!!!!
 	$Timer.set_wait_time(7)
 	$Timer.start()
-	print("Buenas Tardes")
+	anim_pic1.play("football")
 	
 func _on_pic_3_body_entered(body): #en realidad es el PIC3!!!!!
 	$Timer.set_wait_time(7)
 	$Timer.start()
+	anim_pic3.play("chair")
 
 	
 func _on_timer_timeout():
 	$Timer.stop()
 	print("Pic opportunity missed...")
 	
+func hide_tut_text():
+	tutorial_text.visible = false;
+
+func show_endgame_text():
+	endgame_text.visible = true;
+
+func show_king_pointer():
+	king_pointer.visible = true;
+	king_animation.play("pointer")
 
 func _on_timer_photo_timeout():
 	photo = false

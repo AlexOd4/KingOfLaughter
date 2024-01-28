@@ -1,0 +1,28 @@
+[gd_resource type="TileSet" load_steps=3 format=3 uid="uid://b6xdcg8mo6iyo"]
+
+[ext_resource type="Texture2D" uid="uid://y4iu3jcjtsgu" path="res://sprites/deco.png" id="1_w70u1"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lg68x"]
+texture = ExtResource("1_w70u1")
+texture_region_size = Vector2i(8, 8)
+use_texture_padding = false
+23:34/0 = 0
+50:38/0 = 0
+66:27/0 = 0
+2:4/size_in_atlas = Vector2i(2, 2)
+2:4/0 = 0
+6:5/size_in_atlas = Vector2i(2, 1)
+6:5/0 = 0
+8:4/size_in_atlas = Vector2i(7, 2)
+8:4/0 = 0
+15:0/size_in_atlas = Vector2i(5, 6)
+15:0/0 = 0
+29:0/size_in_atlas = Vector2i(4, 6)
+29:0/0 = 0
+24:0/size_in_atlas = Vector2i(5, 6)
+24:0/0 = 0
+20:0/size_in_atlas = Vector2i(4, 6)
+20:0/0 = 0
+
+[resource]
+sources/0 = SubResource("TileSetAtlasSource_lg68x")
