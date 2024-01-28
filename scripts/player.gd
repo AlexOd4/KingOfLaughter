@@ -63,6 +63,7 @@ func _on_pic_1_body_entered(body):
 func _on_pic_2_body_entered(body):
 	$Timer.set_wait_time(7)
 	$Timer.start()
+	$"../Pic2/Pedo-sheet/AnimationPlayer".play("Farting")
 
 func _on_pic_3_body_entered(body):
 	$Timer.set_wait_time(7)
