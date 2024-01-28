@@ -1,8 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://b2ey4ak8n8l71"]
+[gd_scene load_steps=4 format=3 uid="uid://cu8t3cev2oh37"]
 
 [ext_resource type="Script" path="res://scripts/Menu.gd" id="1_bam3e"]
 [ext_resource type="FontFile" uid="uid://ds6c45n3sjfkj" path="res://scenes/Adventurer.ttf" id="2_5invf"]
-[ext_resource type="Texture2D" path="res://sprites/logo.png" id="2_7rv3s"]
+[ext_resource type="Texture2D" uid="uid://1ijtg60n5b2w" path="res://sprites/logo.png" id="2_7rv3s"]
 
 [node name="Menu" type="Control"]
 layout_mode = 3

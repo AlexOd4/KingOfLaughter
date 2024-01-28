@@ -9,6 +9,6 @@ var offered_picture = false
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	if player.position.x > 230  and Global.total_pictures > 3:
+	if player.position.x > 200  and Global.total_pictures > 3:
 		print("BYE BYE :D")
-		get_tree().quit()
+		get_tree().change_scene_to_file("res://scenes/credits.tscn")
