@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://cd6h3csu3yklm"]
+[gd_scene load_steps=16 format=3 uid="uid://cd6h3csu3yklm"]
 
 [ext_resource type="Script" path="res://scripts/world.gd" id="1_rg3vy"]
 [ext_resource type="PackedScene" uid="uid://b1w53y64nr7bt" path="res://scenes/player.tscn" id="2_13m3n"]
@@ -6,7 +6,8 @@
 [ext_resource type="Texture2D" uid="uid://dcp4k7w3mdvqt" path="res://sprites/camera_flash.png" id="4_27sgv"]
 [ext_resource type="TileSet" uid="uid://bny2a6g1una6w" path="res://tilemaps/village_terrain.tres" id="5_8cdmt"]
 [ext_resource type="TileSet" uid="uid://cijplv1o81qr4" path="res://tilemaps/rocks.tres" id="6_yv6br"]
-[ext_resource type="Texture2D" uid="uid://1l5ru0jjhfxy" path="res://sprites/s_npc.png" id="7_qncoe"]
+[ext_resource type="Texture2D" uid="uid://dbbet3v4xj2f3" path="res://sprites/s_npc.png" id="7_qncoe"]
+[ext_resource type="Texture2D" uid="uid://dljhi6duxjh0e" path="res://sprites/Pedo-Sheet.png" id="8_qlyqc"]
 
 [sub_resource type="Animation" id="Animation_p3n0h"]
 length = 0.001
@@ -47,6 +48,67 @@ _data = {
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kr6na"]
 size = Vector2(320, 180)
+
+[sub_resource type="Animation" id="Animation_lb1ci"]
+resource_name = "Farting"
+length = 7.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8, 1, 1.2, 1.4, 1.6, 1.9, 2.1, 2.2, 2.5, 3.7, 3.9, 4.1, 4.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 2, 3, 4, 5, 6]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(2.5, 2.6, 2.7, 2.8, 2.9, 3, 3.1, 3.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [Vector2(-31, 55), Vector2(-32, 55), Vector2(-30, 55), Vector2(-31, 55), Vector2(-32, 55), Vector2(-30, 55), Vector2(-31, 55), Vector2(-30, 55)]
+}
+
+[sub_resource type="Animation" id="Animation_g18ku"]
+resource_name = "RESET"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-32, 55)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_y0mfw"]
+_data = {
+"Farting": SubResource("Animation_lb1ci"),
+"RESET": SubResource("Animation_g18ku")
+}
 
 [node name="World" type="Node2D"]
 script = ExtResource("1_rg3vy")
@@ -119,9 +181,16 @@ collision_mask = 2
 position = Vector2(-640, 0)
 shape = SubResource("RectangleShape2D_kr6na")
 
-[node name="Sprite2D" type="Sprite2D" parent="Pic2"]
-position = Vector2(-120, 62)
-texture = ExtResource("7_qncoe")
+[node name="Pedo-sheet" type="Sprite2D" parent="Pic2"]
+position = Vector2(-32, 55)
+texture = ExtResource("8_qlyqc")
+hframes = 7
+region_filter_clip_enabled = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Pic2/Pedo-sheet"]
+libraries = {
+"": SubResource("AnimationLibrary_y0mfw")
+}
 
 [node name="Pic3" type="Area2D" parent="."]
 collision_layer = 2
