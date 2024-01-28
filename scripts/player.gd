@@ -10,7 +10,6 @@ const JUMP_VELOCITY = -350.0
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var pic_start = 5
 var pic_end = 3.5
-var rot_sprite = false
 
 func _physics_process(delta): 
 	apply_gravity(delta)
@@ -19,7 +18,6 @@ func _physics_process(delta):
 	handle_acceleration(input_axis, delta)
 	apply_friction(input_axis, delta)
 	move_and_slide()
-	$Sprite2D.flip_h = rot_sprite
 	
 	var time_left = $Timer.get_time_left()
 	if Input.is_action_just_pressed("ui_accept"):
@@ -45,13 +43,7 @@ func handle_jump():
 func handle_acceleration(input_axis, delta):
 	if input_axis != 0:
 		velocity.x = move_toward(velocity.x, SPEED * input_axis, ACCELERATION * delta)
-		$AnimationPlayer.play("run")
-		if velocity.x > 0:
-			rot_sprite = false
-		elif velocity.x < 0:
-			rot_sprite = true
-	else:
-		$AnimationPlayer.play("idle")
+		
 func apply_friction(input_axis, delta):
 	if input_axis == 0:
 		velocity.x = move_toward(velocity.x, 0, FRICTION * delta)
@@ -63,7 +55,6 @@ func _on_pic_1_body_entered(body):
 func _on_pic_2_body_entered(body):
 	$Timer.set_wait_time(7)
 	$Timer.start()
-	$"../Pic2/Pedo-sheet/AnimationPlayer".play("Farting")
 
 func _on_pic_3_body_entered(body):
 	$Timer.set_wait_time(7)
